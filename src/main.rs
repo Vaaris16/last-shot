@@ -10,8 +10,8 @@ pub const SECONDARY_TEXT_COLOR: Color = Color::hsl(359., 0.01, 0.32);
 
 #[derive(States, Debug, Clone, Hash, Default, PartialEq, Eq)]
 pub enum GameState {
-    #[default]
     SplashScreen,
+    #[default]
     Game,
     Retry,
 }
