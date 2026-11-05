@@ -1,3 +1,4 @@
+use avian2d::{PhysicsPlugins, debug_render::PhysicsDebugPlugin};
 use bevy::{prelude::*, window::WindowMode};
 
 use crate::{core::core_plugin::CorePlugin, screens::screens_plugin::ScreensPlugin};
@@ -28,6 +29,8 @@ fn main() {
             }),
             CorePlugin,
             ScreensPlugin,
+            PhysicsPlugins::default(),
+            PhysicsDebugPlugin::default(),
         ))
         .init_state::<GameState>()
         .run();
