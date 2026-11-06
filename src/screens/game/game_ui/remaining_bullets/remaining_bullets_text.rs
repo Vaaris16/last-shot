@@ -13,7 +13,7 @@ pub struct RemainingBulletsText;
 
 impl Default for RemainingBulletsTimer {
     fn default() -> Self {
-        Self(Timer::from_seconds(10.0, TimerMode::Repeating))
+        Self(Timer::from_seconds(15.0, TimerMode::Repeating))
     }
 }
 

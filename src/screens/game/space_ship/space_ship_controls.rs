@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use crate::screens::game::{
     game_ui::remaining_bullets::remaining_bullets_text::{
         RemainingBullets, decrement_remaining_bullets,
@@ -45,7 +47,17 @@ pub fn spaceship_controls(
 }
 
 #[derive(Component)]
-pub struct Bullet;
+pub struct Bullet {
+    timer: Timer,
+}
+
+impl Default for Bullet {
+    fn default() -> Self {
+        Self {
+            timer: Timer::new(Duration::new(7, 0), TimerMode::Once),
+        }
+    }
+}
 
 pub fn shoot_bullet(
     mut commands: Commands,
@@ -73,11 +85,25 @@ pub fn shoot_bullet(
             },
             RigidBody::Dynamic,
             Collider::circle(5.0),
-            LinearVelocity(direction.truncate() * 600.0),
+            LinearVelocity(direction.truncate() * 700.0),
             GravityScale(0.0),
-            Bullet,
+            Bullet::default(),
+            Restitution::new(1.5),
         ));
 
         decrement_remaining_bullets(remaining_bullets);
+    }
+}
+
+pub fn maintain_bullet(
+    mut commands: Commands,
+    time: Res<Time>,
+    bullets: Query<(&mut Bullet, Entity), With<Bullet>>,
+) {
+    for (mut bullet, bullet_entity) in bullets {
+        bullet.timer.tick(time.delta());
+        if bullet.timer.just_finished() {
+            commands.entity(bullet_entity).despawn();
+        }
     }
 }
