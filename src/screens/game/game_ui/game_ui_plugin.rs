@@ -10,12 +10,17 @@ use crate::{
                 spawn_remaining_bullets, update_remaining_bullets_text,
             },
             score::spawn_score_text::{Score, spawn_score, update_score},
-            space_ship_lifes::spawn_space_ship_lifes::{SpaceShipLifes, spaceship_lifes},
+            space_ship_lifes::spawn_space_ship_lifes::{
+                SpaceShipLifes, enter_retry_screen, spaceship_lifes,
+            },
         },
     },
 };
 
 pub struct GameUiPlugin;
+
+#[derive(Component, FromTemplate)]
+pub struct GameUi;
 
 impl Plugin for GameUiPlugin {
     fn build(&self, app: &mut App) {
@@ -24,7 +29,12 @@ impl Plugin for GameUiPlugin {
             .add_systems(Update, update_score.in_set(GameSet))
             .add_systems(
                 Update,
-                (increment_remaining_bullets, update_remaining_bullets_text).in_set(GameSet),
+                (
+                    increment_remaining_bullets,
+                    update_remaining_bullets_text,
+                    enter_retry_screen,
+                )
+                    .in_set(GameSet),
             )
             .insert_resource(RemainingBulletsTimer::default())
             .insert_resource(RemainingBullets(1))
@@ -38,6 +48,7 @@ fn game_ui(mut commands: Commands) {
             width: percent(100),
             justify_content: JustifyContent::SpaceBetween,
         }
+        GameUi
         Children [
             @spawn_remaining_bullets()
             --

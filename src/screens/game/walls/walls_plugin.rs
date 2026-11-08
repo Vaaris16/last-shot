@@ -11,6 +11,9 @@ impl Plugin for WallsPlugin {
     }
 }
 
+#[derive(Component, FromTemplate)]
+pub struct Wall;
+
 fn spawn_walls(mut commands: Commands, window: Single<&Window>) {
     let width = window.width();
     let height = window.height();
@@ -20,23 +23,27 @@ fn spawn_walls(mut commands: Commands, window: Single<&Window>) {
         RigidBody::Static
         Collider::rectangle(width, thickness)
         Transform::from_xyz(0., height / 2., 0.)
+        Wall
     });
 
     commands.spawn_scene(bsn! {
         RigidBody::Static
         Collider::rectangle(width, thickness)
         Transform::from_xyz(0., -height / 2., 0.)
+        Wall
     });
 
     commands.spawn_scene(bsn! {
         RigidBody::Static
         Collider::rectangle(thickness, height)
         Transform::from_xyz(-width / 2., 0., 0.)
+        Wall
     });
 
     commands.spawn_scene(bsn! {
         RigidBody::Static
         Collider::rectangle(thickness, height)
         Transform::from_xyz(width / 2., 0., 0.)
+        Wall
     });
 }

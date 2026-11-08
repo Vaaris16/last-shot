@@ -1,4 +1,4 @@
-use crate::GameState;
+use crate::{GameState, screens::game::game_ui::space_ship_lifes};
 use bevy::prelude::*;
 
 #[derive(Resource)]
@@ -70,5 +70,14 @@ pub fn decrement_lifes(
         if indicator.index > lifes.0 {
             commands.entity(indicator_entity).despawn();
         }
+    }
+}
+
+pub fn enter_retry_screen(
+    mut next_state: ResMut<NextState<GameState>>,
+    space_ship_lifes: Res<SpaceShipLifes>,
+) {
+    if space_ship_lifes.0 == 0 {
+        next_state.set(GameState::Retry);
     }
 }
