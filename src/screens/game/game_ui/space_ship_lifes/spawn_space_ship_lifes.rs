@@ -42,9 +42,9 @@ pub fn spaceship_lifes(mut commands: Commands, asset_server: Res<AssetServer>) {
 
 pub fn decrement_lifes(
     life_indicator: Query<(Entity, &SpaceShipLifesIndicator)>,
-    mut lifes: ResMut<SpaceShipLifes>,
-    mut game_state: ResMut<NextState<GameState>>,
-    mut commands: Commands,
+    lifes: &mut SpaceShipLifes,
+    game_state: &mut NextState<GameState>,
+    commands: &mut Commands,
 ) {
     lifes.0 -= 1;
 

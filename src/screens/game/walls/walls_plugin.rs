@@ -1,11 +1,13 @@
 use avian2d::prelude::*;
 use bevy::prelude::*;
 
+use crate::GameState;
+
 pub struct WallsPlugin;
 
 impl Plugin for WallsPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, spawn_walls);
+        app.add_systems(OnEnter(GameState::Game), spawn_walls);
     }
 }
 
@@ -16,33 +18,25 @@ fn spawn_walls(mut commands: Commands, window: Single<&Window>) {
 
     commands.spawn_scene(bsn! {
         RigidBody::Static
-
         Collider::rectangle(width, thickness)
-
         Transform::from_xyz(0., height / 2., 0.)
     });
 
     commands.spawn_scene(bsn! {
         RigidBody::Static
-
         Collider::rectangle(width, thickness)
-
         Transform::from_xyz(0., -height / 2., 0.)
     });
 
     commands.spawn_scene(bsn! {
         RigidBody::Static
-
         Collider::rectangle(thickness, height)
-
         Transform::from_xyz(-width / 2., 0., 0.)
     });
 
     commands.spawn_scene(bsn! {
         RigidBody::Static
-
         Collider::rectangle(thickness, height)
-
         Transform::from_xyz(width / 2., 0., 0.)
     });
 }

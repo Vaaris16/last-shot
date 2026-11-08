@@ -84,9 +84,9 @@ pub fn shoot_bullet(
                 ..default()
             },
             RigidBody::Dynamic,
-            Collider::circle(5.0),
-            LinearVelocity(direction.truncate() * 700.0),
-            GravityScale(0.0),
+            Collider::circle(5.),
+            LinearVelocity(direction.truncate() * 700.),
+            GravityScale(0.),
             Bullet::default(),
             Restitution::new(1.5),
         ));

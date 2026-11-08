@@ -23,6 +23,7 @@ pub fn spawn_space_spaceship(mut commands: Commands) {
             Vector::new(-35.0, -50.0),
             Vector::new(35.0, -50.0),
         )
+        CollisionEventsEnabled
     });
 }
 

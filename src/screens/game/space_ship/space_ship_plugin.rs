@@ -2,9 +2,12 @@ use bevy::prelude::*;
 
 use crate::{
     GameState,
-    screens::game::space_ship::{
-        space_ship_controls::{maintain_bullet, shoot_bullet, spaceship_controls},
-        spawn_space_ship::{keep_spaceship_in_bounds, spawn_space_spaceship},
+    screens::game::{
+        game_plugin::GameSet,
+        space_ship::{
+            space_ship_controls::{maintain_bullet, shoot_bullet, spaceship_controls},
+            spawn_space_ship::{keep_spaceship_in_bounds, spawn_space_spaceship},
+        },
     },
 };
 
@@ -20,7 +23,8 @@ impl Plugin for SpaceShipPlugin {
                     spaceship_controls,
                     keep_spaceship_in_bounds,
                     shoot_bullet,
-                ),
+                )
+                    .in_set(GameSet),
             );
     }
 }
