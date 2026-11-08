@@ -30,7 +30,6 @@ fn main() {
             CorePlugin,
             ScreensPlugin,
             PhysicsPlugins::default(),
-            PhysicsDebugPlugin::default(),
         ))
         .init_state::<GameState>()
         .run();

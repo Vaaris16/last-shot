@@ -4,40 +4,54 @@ use bevy::prelude::*;
 #[derive(Resource)]
 pub struct SpaceShipLifes(pub i32);
 
-#[derive(Component)]
+#[derive(Component, FromTemplate)]
 pub struct SpaceShipLifeUi;
 
-#[derive(Component)]
+#[derive(Component, FromTemplate)]
 pub struct SpaceShipLifesIndicator {
     index: i32,
 }
 
-pub fn spaceship_lifes(mut commands: Commands, asset_server: Res<AssetServer>) {
-    commands
-        .spawn((
-            Node {
-                position_type: PositionType::Absolute,
-                top: px(20),
-                left: px(50),
-                column_gap: px(30),
-                justify_content: JustifyContent::FlexEnd,
-                ..Default::default()
-            },
-            SpaceShipLifeUi,
-        ))
-        .with_children(|life| {
-            for i in 1..=3 {
-                life.spawn((
-                    ImageNode::new(asset_server.load("space_ship_lifes.png")),
-                    SpaceShipLifesIndicator { index: i },
-                    Node {
-                        width: px(65),
-                        height: px(65),
-                        ..Default::default()
-                    },
-                ));
-            }
-        });
+pub fn spaceship_lifes() -> impl Scene {
+    bsn! {
+        SpaceShipLifeUi
+        Node {
+            position_type: PositionType::Absolute,
+            top: px(20),
+            left: px(50),
+            column_gap: px(30),
+            justify_content: JustifyContent::FlexEnd,
+        }
+
+        Children [
+                ImageNode {
+                    image: "space_ship_lifes.png"
+                }
+                SpaceShipLifesIndicator { index: 1 }
+                Node {
+                    width: px(65),
+                    height: px(65),
+                }
+            --
+                ImageNode {
+                    image: "space_ship_lifes.png"
+                }
+                SpaceShipLifesIndicator { index: 2 }
+                Node {
+                    width: px(65),
+                    height: px(65),
+                }
+            --
+                ImageNode {
+                    image: "space_ship_lifes.png"
+                }
+                SpaceShipLifesIndicator { index: 3 }
+                Node {
+                    width: px(65),
+                    height: px(65),
+                }
+        ]
+    }
 }
 
 pub fn decrement_lifes(

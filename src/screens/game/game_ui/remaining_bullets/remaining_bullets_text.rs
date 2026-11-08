@@ -17,8 +17,8 @@ impl Default for RemainingBulletsTimer {
     }
 }
 
-pub fn spawn_remaining_bullets(mut commands: Commands) {
-    commands.spawn_scene(bsn! {
+pub fn spawn_remaining_bullets() -> impl Scene {
+    bsn! {
         Node {
             position_type: PositionType::Absolute,
             justify_content: JustifyContent::Center,
@@ -32,7 +32,7 @@ pub fn spawn_remaining_bullets(mut commands: Commands) {
             --
             @remaining_bullets_text()
         ]
-    });
+    }
 }
 
 fn remaining_bullets_text() -> impl Scene {

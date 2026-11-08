@@ -8,8 +8,8 @@ pub struct ScoreText;
 #[derive(Resource)]
 pub struct Score(pub i64);
 
-pub fn spawn_score(mut commands: Commands) {
-    commands.spawn_scene(bsn! {
+pub fn spawn_score() -> impl Scene {
+    bsn! {
         Node {
             width: percent(100),
             height: percent(100),
@@ -18,7 +18,7 @@ pub fn spawn_score(mut commands: Commands) {
         Children [
             @score_text()
         ]
-    });
+    }
 }
 
 fn score_text() -> impl Scene {
@@ -27,7 +27,7 @@ fn score_text() -> impl Scene {
     bsn! {
         Text("Score Score")
         TextFont {
-            font_size: px(32),
+            font_size: px(64),
             font: FontSourceTemplate::Handle(score_text_font),
         }
         TextColor(Color::WHITE)

@@ -19,19 +19,31 @@ pub struct GameUiPlugin;
 
 impl Plugin for GameUiPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(OnEnter(GameState::Game), spawn_score)
+        app.add_systems(OnEnter(GameState::Game), game_ui)
             .insert_resource(Score(0))
-            .add_systems(Update, update_score.in_set(GameSet));
-
-        app.add_systems(OnEnter(GameState::Game), spawn_remaining_bullets)
+            .add_systems(Update, update_score.in_set(GameSet))
             .add_systems(
                 Update,
                 (increment_remaining_bullets, update_remaining_bullets_text).in_set(GameSet),
             )
             .insert_resource(RemainingBulletsTimer::default())
-            .insert_resource(RemainingBullets(1));
-
-        app.insert_resource(SpaceShipLifes(3))
-            .add_systems(OnEnter(GameState::Game), spaceship_lifes);
+            .insert_resource(RemainingBullets(1))
+            .insert_resource(SpaceShipLifes(3));
     }
+}
+
+fn game_ui(mut commands: Commands) {
+    commands.spawn_scene(bsn! {
+        Node {
+            width: percent(100),
+            justify_content: JustifyContent::SpaceBetween,
+        }
+        Children [
+            @spawn_remaining_bullets()
+            --
+            @spawn_score()
+            --
+            @spaceship_lifes()
+        ]
+    });
 }
