@@ -461,7 +461,6 @@ dependencies = [
  "itertools 0.15.0",
  "obvhs",
  "parry2d",
- "parry2d-f64",
  "smallvec",
  "thiserror 2.0.21",
  "thread_local",
@@ -3050,9 +3049,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "300e883d756b2e4ec94e02791f39b04b522276138852cfc41d9fb7e904106099"
 dependencies = [
  "cfg-if",
+ "js-sys",
  "libc",
  "r-efi 6.0.0",
  "rand_core",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -3697,6 +3698,7 @@ version = "0.1.0"
 dependencies = [
  "avian2d",
  "bevy",
+ "getrandom 0.4.3",
  "rand",
 ]
 
@@ -4715,34 +4717,6 @@ dependencies = [
  "num-derive 0.5.1",
  "num-traits",
  "ordered-float",
- "rayon",
- "simba",
- "slab",
- "smallvec",
- "spade",
- "thiserror 2.0.21",
-]
-
-[[package]]
-name = "parry2d-f64"
-version = "0.31.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4f0d7c5731bcbff3cefdca822e64693f9654598377475030f25946a3417be856"
-dependencies = [
- "approx",
- "arrayvec",
- "bitflags 2.13.2",
- "downcast-rs 2.0.2",
- "either",
- "ena",
- "foldhash 0.2.0",
- "glamx",
- "hashbrown 0.17.1",
- "log",
- "num-derive 0.5.1",
- "num-traits",
- "ordered-float",
- "rayon",
  "simba",
  "slab",
  "smallvec",

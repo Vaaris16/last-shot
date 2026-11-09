@@ -1,5 +1,5 @@
 use avian2d::PhysicsPlugins;
-use bevy::{prelude::*, window::WindowMode};
+use bevy::{asset::AssetMetaCheck, prelude::*, window::WindowMode};
 
 use crate::{core::core_plugin::CorePlugin, screens::screens_plugin::ScreensPlugin};
 
@@ -20,13 +20,18 @@ pub enum GameState {
 fn main() {
     App::new()
         .add_plugins((
-            DefaultPlugins.set(WindowPlugin {
-                primary_window: Some(Window {
-                    mode: WindowMode::BorderlessFullscreen(MonitorSelection::Current),
+            DefaultPlugins
+                .set(AssetPlugin {
+                    meta_check: AssetMetaCheck::Never,
+                    ..Default::default()
+                })
+                .set(WindowPlugin {
+                    primary_window: Some(Window {
+                        mode: WindowMode::BorderlessFullscreen(MonitorSelection::Current),
+                        ..Default::default()
+                    }),
                     ..Default::default()
                 }),
-                ..Default::default()
-            }),
             CorePlugin,
             ScreensPlugin,
             PhysicsPlugins::default(),

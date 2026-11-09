@@ -4,15 +4,13 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-avian2d = "0.8.0"
+avian2d = { version = "0.8.0", default-features = false, features = ["2d", "parry-f32"] }
 bevy = { version = "0.20.1", features = ["wav"] }
 rand = "0.10.3"
+getrandom = { version = "0.4", features = ["wasm_js"] }
 
 [profile.wasm-release]
-# Default to release profile values.
 inherits = "release"
-# Optimize with size in mind (also try "z", sometimes it is better).
-# Slightly slows compile times, great improvements to file size and runtime performance.
 opt-level = "s"
-# Strip all debugging information from the binary to slightly reduce file size.
 strip = "debuginfo"
+
