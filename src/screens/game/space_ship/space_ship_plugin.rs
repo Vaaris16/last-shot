@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use bevy::prelude::*;
 
 use crate::{
@@ -11,6 +13,21 @@ use crate::{
     },
 };
 
+#[derive(Component)]
+pub struct Immune {
+    immune_timer: Timer,
+    blink_timer: Timer,
+}
+
+impl Default for Immune {
+    fn default() -> Self {
+        Self {
+            immune_timer: Timer::new(Duration::from_secs(1), TimerMode::Repeating),
+            blink_timer: Timer::new(Duration::from_secs_f32(0.1), TimerMode::Repeating),
+        }
+    }
+}
+
 pub struct SpaceShipPlugin;
 
 impl Plugin for SpaceShipPlugin {
@@ -23,8 +40,31 @@ impl Plugin for SpaceShipPlugin {
                     spaceship_controls,
                     keep_spaceship_in_bounds,
                     shoot_bullet,
+                    fade_spaceship_immune,
                 )
                     .in_set(GameSet),
             );
+    }
+}
+
+fn fade_spaceship_immune(
+    time: Res<Time>,
+    mut space_ship: Single<(&mut Sprite, Entity, &mut Immune), With<Immune>>,
+    mut commands: Commands,
+) {
+    space_ship.2.immune_timer.tick(time.delta());
+    space_ship.2.blink_timer.tick(time.delta());
+
+    let alpha = space_ship.0.color.alpha();
+
+    if space_ship.2.blink_timer.just_finished() {
+        if alpha > 0.5 {
+            space_ship.0.color.set_alpha(0.15);
+        } else {
+            space_ship.0.color.set_alpha(1.0);
+        }
+    }
+    if space_ship.2.immune_timer.just_finished() {
+        commands.entity(space_ship.1).remove::<Immune>();
     }
 }

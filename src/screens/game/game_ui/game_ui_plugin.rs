@@ -9,7 +9,7 @@ use crate::{
                 RemainingBullets, RemainingBulletsTimer, increment_remaining_bullets,
                 spawn_remaining_bullets, update_remaining_bullets_text,
             },
-            score::spawn_score_text::{Score, spawn_score, update_score},
+            score::spawn_score_text::{Score, ScoreTimer, spawn_score, update_score},
             space_ship_lifes::spawn_space_ship_lifes::{
                 SpaceShipLifes, enter_retry_screen, spaceship_lifes,
             },
@@ -32,12 +32,14 @@ impl Plugin for GameUiPlugin {
                     increment_remaining_bullets,
                     update_remaining_bullets_text,
                     enter_retry_screen,
+                    update_score,
                 )
                     .in_set(GameSet),
             )
             .insert_resource(RemainingBulletsTimer::default())
             .insert_resource(RemainingBullets(1))
-            .insert_resource(SpaceShipLifes(3));
+            .insert_resource(SpaceShipLifes(3))
+            .insert_resource(ScoreTimer::default());
     }
 }
 

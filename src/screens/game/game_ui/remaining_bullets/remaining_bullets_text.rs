@@ -1,6 +1,9 @@
-use bevy::{prelude::*, state::commands};
+use bevy::{prelude::*, state::commands, text::FontSourceTemplate};
 
-use crate::screens::game::game_ui::remaining_bullets::remaining_bullets_text;
+use crate::{
+    core::game_fonts::game_fonts_resource::GameFonts,
+    screens::game::game_ui::remaining_bullets::remaining_bullets_text,
+};
 
 #[derive(Resource)]
 pub struct RemainingBullets(pub i32);
@@ -36,10 +39,12 @@ pub fn spawn_remaining_bullets() -> impl Scene {
 }
 
 fn remaining_bullets_text() -> impl Scene {
+    let remaining_bullets_text_font = GameFonts::OxaniumBold.font_path();
     bsn! {
         Text("0")
         TextFont {
-            font_size: px(32),
+            font_size: px(40),
+            font: FontSourceTemplate::Handle(remaining_bullets_text_font)
         }
         TextColor(Color::WHITE)
         RemainingBulletsText

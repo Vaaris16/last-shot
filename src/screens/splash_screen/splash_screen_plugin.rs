@@ -32,6 +32,8 @@ fn spawn_splash_screen_ui(mut commands: Commands) {
             @splash_title()
             --
             @press_to_start()
+            --
+            @spawn_controls_text()
         ]
     });
 }
@@ -71,4 +73,25 @@ fn cleanup_splash_screen(
     mut commands: Commands,
 ) {
     commands.entity(*splash_screen_ui).despawn();
+}
+
+const CONTROLS_TEXT: &str = "< ROTATE LEFT   > ROTATE RIGHT   WASD TO MOVE   SPACE SHOOT";
+
+fn spawn_controls_text() -> impl Scene {
+    let controls_text_font = GameFonts::OxaniumBold.font_path();
+    bsn! {
+            Node {
+                position_type: PositionType::Absolute,
+                bottom: px(55),
+                justify_content: JustifyContent::Center,
+                align_items: AlignItems::Center,
+            }
+            Children [
+                Text(CONTROLS_TEXT)
+                TextFont {
+                    font_size: px(32),
+                    font: FontSourceTemplate::Handle(controls_text_font),
+                }
+            ]
+    }
 }

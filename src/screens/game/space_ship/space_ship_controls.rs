@@ -9,8 +9,6 @@ use crate::screens::game::{
 use avian2d::prelude::*;
 use bevy::{math::VectorSpace, prelude::*};
 
-const SPEED: f32 = 300.;
-
 pub fn spaceship_controls(
     keyboard: Res<ButtonInput<KeyCode>>,
     space_ship: Single<(&mut LinearVelocity, &mut AngularVelocity), With<SpaceShip>>,
@@ -21,27 +19,27 @@ pub fn spaceship_controls(
     velocity.y = 0.;
     angular_velocity.0 = 0.;
 
-    if keyboard.pressed(KeyCode::ArrowUp) {
+    if keyboard.pressed(KeyCode::KeyW) {
         velocity.y = 300.;
     }
 
-    if keyboard.pressed(KeyCode::ArrowDown) {
+    if keyboard.pressed(KeyCode::KeyS) {
         velocity.y = -300.;
     }
 
-    if keyboard.pressed(KeyCode::ArrowRight) {
+    if keyboard.pressed(KeyCode::KeyD) {
         velocity.x = 300.;
     }
 
-    if keyboard.pressed(KeyCode::ArrowLeft) {
+    if keyboard.pressed(KeyCode::KeyA) {
         velocity.x = -300.;
     }
 
-    if keyboard.pressed(KeyCode::KeyA) {
+    if keyboard.pressed(KeyCode::ArrowLeft) {
         angular_velocity.0 = 3.;
     }
 
-    if keyboard.pressed(KeyCode::KeyD) {
+    if keyboard.pressed(KeyCode::ArrowRight) {
         angular_velocity.0 = -3.;
     }
 }
@@ -54,7 +52,7 @@ pub struct Bullet {
 impl Default for Bullet {
     fn default() -> Self {
         Self {
-            timer: Timer::new(Duration::new(7, 0), TimerMode::Once),
+            timer: Timer::new(Duration::new(6, 0), TimerMode::Once),
         }
     }
 }
