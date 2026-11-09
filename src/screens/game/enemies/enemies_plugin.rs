@@ -1,4 +1,7 @@
-use crate::{GameState, screens::game::game_plugin::GameSet};
+use crate::{
+    GameState,
+    screens::game::{game_plugin::GameSet, game_ui::score::spawn_score_text::Score},
+};
 use avian2d::prelude::*;
 use bevy::prelude::*;
 use rand::RngExt;
@@ -9,8 +12,15 @@ impl Plugin for EnemiesPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(
             Update,
-            (move_enemies, maintain_enemies, despawn_enemies).in_set(GameSet),
-        );
+            (
+                move_enemies,
+                maintain_enemies,
+                despawn_enemies,
+                increment_enemy_count,
+            )
+                .in_set(GameSet),
+        )
+        .insert_resource(EnemyCount::default());
     }
 }
 
@@ -21,6 +31,15 @@ enum Side {
     Bottom,
     Right,
     Left,
+}
+
+#[derive(Resource)]
+struct EnemyCount(i32);
+
+impl Default for EnemyCount {
+    fn default() -> Self {
+        Self(3)
+    }
 }
 
 #[derive(Component, Clone, Copy, Default)]
@@ -148,10 +167,11 @@ fn maintain_enemies(
     mut commands: Commands,
     window: Single<&Window>,
     enemies: Query<(), With<Enemy>>,
+    enemy_count: Res<EnemyCount>,
 ) {
     let count_enemy = enemies.count();
 
-    if count_enemy < 4 {
+    if count_enemy < enemy_count.0 as usize {
         spawn_enemy(&mut commands, &window);
     }
 }
@@ -175,5 +195,17 @@ fn despawn_enemies(
         {
             commands.entity(entity).despawn();
         }
+    }
+}
+
+fn increment_enemy_count(mut enemy_count: ResMut<EnemyCount>, score: Res<Score>) {
+    if score.0 >= 90 {
+        enemy_count.0 = 10;
+    } else if score.0 >= 30 {
+        enemy_count.0 = 7;
+    } else if score.0 >= 20 {
+        enemy_count.0 = 5;
+    } else if score.0 >= 10 {
+        enemy_count.0 = 4;
     }
 }

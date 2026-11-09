@@ -26,7 +26,6 @@ impl Plugin for GameUiPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(OnEnter(GameState::Game), game_ui)
             .insert_resource(Score(0))
-            .add_systems(Update, update_score.in_set(GameSet))
             .add_systems(
                 Update,
                 (

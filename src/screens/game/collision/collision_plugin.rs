@@ -6,8 +6,11 @@ use crate::{
     screens::game::{
         enemies::enemies_plugin::Enemy,
         game_plugin::GameSet,
-        game_ui::space_ship_lifes::spawn_space_ship_lifes::{
-            SpaceShipLifes, SpaceShipLifesIndicator, decrement_lifes,
+        game_ui::{
+            score::spawn_score_text::{Score, ScoreText, update_score},
+            space_ship_lifes::spawn_space_ship_lifes::{
+                SpaceShipLifes, SpaceShipLifesIndicator, decrement_lifes,
+            },
         },
         space_ship::{space_ship_controls::Bullet, spawn_space_ship::SpaceShip},
     },
@@ -54,6 +57,8 @@ pub fn check_collision_bullet_enemies(
     enemies: Query<Entity, With<Enemy>>,
     mut collision_events: MessageReader<CollisionStart>,
     mut commands: Commands,
+    mut score_text: Single<&mut Text, With<ScoreText>>,
+    mut score: ResMut<Score>,
 ) {
     for events in collision_events.read() {
         let entity1 = events.collider1;
@@ -69,5 +74,6 @@ pub fn check_collision_bullet_enemies(
             };
 
         commands.entity(enemy_entity).despawn();
+        update_score(&mut *score_text, &mut score);
     }
 }

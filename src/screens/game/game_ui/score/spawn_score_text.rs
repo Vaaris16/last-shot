@@ -25,7 +25,7 @@ fn score_text() -> impl Scene {
     let score_text_font = GameFonts::OxaniumMedium.font_path();
 
     bsn! {
-        Text("Score Score")
+        Text("Score: 0")
         TextFont {
             font_size: px(64),
             font: FontSourceTemplate::Handle(score_text_font),
@@ -35,8 +35,8 @@ fn score_text() -> impl Scene {
     }
 }
 
-pub fn update_score(mut score_text: Single<&mut Text, With<ScoreText>>, mut score: ResMut<Score>) {
-    score.0 += 1;
+pub fn update_score(score_text: &mut Text, score: &mut Score) {
+    score.0 += 5;
     let text = format!("Score: {}", score.0.to_string());
     score_text.0 = text;
 }

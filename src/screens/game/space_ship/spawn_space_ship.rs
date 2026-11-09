@@ -8,7 +8,7 @@ pub fn spawn_space_spaceship(mut commands: Commands) {
     commands.spawn_scene(bsn! {
         Sprite {
             image: "space_ship.png",
-            custom_size: Vec2::new(70., 100.)
+            custom_size: Vec2::new(60., 90.)
         }
         Transform::from_xyz(0., 0., 0.)
         SpaceShip
@@ -19,9 +19,9 @@ pub fn spawn_space_spaceship(mut commands: Commands) {
         Restitution::ZERO
         LinearDamping(0.)
         Collider::triangle(
-            Vector::new(0.0, 50.0),
-            Vector::new(-35.0, -50.0),
-            Vector::new(35.0, -50.0),
+            Vector::new(0., 50.),
+            Vector::new(-30., -45.),
+            Vector::new(30., -45.),
         )
         CollisionEventsEnabled
     });
