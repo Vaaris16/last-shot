@@ -7,7 +7,7 @@ use crate::{
         enemies::enemies_plugin::Enemy,
         game_plugin::GameSet,
         game_ui::{
-            score::spawn_score_text::{Score, ScoreText, update_score, update_score_bonus},
+            score::spawn_score_text::{Score, ScoreText, update_score_bonus},
             space_ship_lifes::spawn_space_ship_lifes::{
                 SpaceShipLifes, SpaceShipLifesIndicator, decrement_lifes,
             },
@@ -47,14 +47,12 @@ pub fn check_collision_spaceship_enemies(
         let entity1 = events.collider1;
         let entity2 = events.collider2;
 
-        if (enemies.contains(entity1) && spaceship.contains(entity2))
-            || (enemies.contains(entity2) && spaceship.contains(entity1))
-        {
-            if !space_ship.1 {
+        if ((enemies.contains(entity1) && spaceship.contains(entity2))
+            || (enemies.contains(entity2) && spaceship.contains(entity1)))
+            && !space_ship.1 {
                 decrement_lifes(life_indicator, &mut lifes, &mut game_state, &mut commands);
                 commands.entity(space_ship.0).insert(Immune::default());
             }
-        }
     }
 }
 
@@ -80,7 +78,7 @@ pub fn check_collision_bullet_enemies(
             };
 
         commands.entity(enemy_entity).despawn();
-        update_score_bonus(&mut *score_text, &mut score);
+        update_score_bonus(&mut score_text, &mut score);
         commands.spawn_scene(bsn! {
             AudioPlayer("collision_bullet_enemy_audio.wav")
             PlaybackSettings::ONCE

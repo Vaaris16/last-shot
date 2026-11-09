@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use bevy::{log::tracing_subscriber::fmt::format, prelude::*, text::FontSourceTemplate};
+use bevy::{prelude::*, text::FontSourceTemplate};
 
 use crate::core::game_fonts::game_fonts_resource::GameFonts;
 
@@ -48,7 +48,7 @@ fn score_text() -> impl Scene {
 
 pub fn update_score_bonus(score_text: &mut Text, score: &mut Score) {
     score.0 += 5;
-    let text = format!("Score: {}", score.0.to_string());
+    let text = format!("Score: {}", score.0);
     score_text.0 = text;
 }
 
@@ -62,7 +62,7 @@ pub fn update_score(
 
     if score_timer.0.just_finished() {
         score.0 += 1;
-        let text = format!("Score: {}", score.0.to_string());
+        let text = format!("Score: {}", score.0);
         score_text.0 = text
     }
 }

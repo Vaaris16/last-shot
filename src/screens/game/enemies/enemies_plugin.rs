@@ -1,7 +1,4 @@
-use crate::{
-    GameState,
-    screens::game::{game_plugin::GameSet, game_ui::score::spawn_score_text::Score},
-};
+use crate::screens::game::{game_plugin::GameSet, game_ui::score::spawn_score_text::Score};
 use avian2d::prelude::*;
 use bevy::prelude::*;
 use rand::RngExt;
@@ -141,7 +138,7 @@ impl Enemy {
 }
 
 fn spawn_enemy(commands: &mut Commands, window: &Window) {
-    let mut enemy = Enemy::new(&window);
+    let mut enemy = Enemy::new(window);
     enemy.vel = enemy.rand_vel_based_sides();
     enemy.pos = enemy.rand_pos();
 

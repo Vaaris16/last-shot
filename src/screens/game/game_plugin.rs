@@ -12,10 +12,9 @@ use crate::{
             space_ship_lifes::spawn_space_ship_lifes::SpaceShipLifes,
         },
         space_ship::{
-            self,
             space_ship_controls::Bullet,
             space_ship_plugin::SpaceShipPlugin,
-            spawn_space_ship::{SpaceShip, spawn_space_spaceship},
+            spawn_space_ship::SpaceShip,
         },
         walls::walls_plugin::{Wall, WallsPlugin},
     },

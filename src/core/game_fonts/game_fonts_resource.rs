@@ -1,4 +1,3 @@
-use bevy::prelude::*;
 
 pub enum GameFonts {
     OxaniumBold,

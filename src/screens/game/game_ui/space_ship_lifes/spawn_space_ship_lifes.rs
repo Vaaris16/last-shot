@@ -1,4 +1,4 @@
-use crate::{GameState, screens::game::game_ui::space_ship_lifes};
+use crate::GameState;
 use bevy::prelude::*;
 
 #[derive(Resource)]

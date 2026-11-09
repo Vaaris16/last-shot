@@ -1,9 +1,6 @@
-use bevy::{prelude::*, state::commands, text::FontSourceTemplate};
+use bevy::{prelude::*, text::FontSourceTemplate};
 
-use crate::{
-    core::game_fonts::game_fonts_resource::GameFonts,
-    screens::game::game_ui::remaining_bullets::remaining_bullets_text,
-};
+use crate::core::game_fonts::game_fonts_resource::GameFonts;
 
 #[derive(Resource)]
 pub struct RemainingBullets(pub i32);

@@ -7,7 +7,7 @@ use crate::screens::game::{
     space_ship::spawn_space_ship::SpaceShip,
 };
 use avian2d::prelude::*;
-use bevy::{math::VectorSpace, prelude::*};
+use bevy::prelude::*;
 
 pub fn spaceship_controls(
     keyboard: Res<ButtonInput<KeyCode>>,

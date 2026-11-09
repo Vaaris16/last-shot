@@ -1,4 +1,4 @@
-use avian2d::{PhysicsPlugins, debug_render::PhysicsDebugPlugin};
+use avian2d::PhysicsPlugins;
 use bevy::{prelude::*, window::WindowMode};
 
 use crate::{core::core_plugin::CorePlugin, screens::screens_plugin::ScreensPlugin};
