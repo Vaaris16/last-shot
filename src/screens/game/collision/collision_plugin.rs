@@ -49,10 +49,11 @@ pub fn check_collision_spaceship_enemies(
 
         if ((enemies.contains(entity1) && spaceship.contains(entity2))
             || (enemies.contains(entity2) && spaceship.contains(entity1)))
-            && !space_ship.1 {
-                decrement_lifes(life_indicator, &mut lifes, &mut game_state, &mut commands);
-                commands.entity(space_ship.0).insert(Immune::default());
-            }
+            && !space_ship.1
+        {
+            decrement_lifes(life_indicator, &mut lifes, &mut game_state, &mut commands);
+            commands.entity(space_ship.0).insert(Immune::default());
+        }
     }
 }
 
@@ -80,7 +81,7 @@ pub fn check_collision_bullet_enemies(
         commands.entity(enemy_entity).despawn();
         update_score_bonus(&mut score_text, &mut score);
         commands.spawn_scene(bsn! {
-            AudioPlayer("collision_bullet_enemy_audio.wav")
+            AudioPlayer("collision_bullet_enemy_audio.ogg")
             PlaybackSettings::ONCE
         });
     }

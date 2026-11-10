@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 avian2d = { version = "0.8.0", default-features = false, features = ["2d", "parry-f32"] }
-bevy = { version = "0.20.1", features = ["wav"] }
+bevy = { version = "0.20.1", features = ["vorbis"] }
 rand = "0.10.3"
 getrandom = { version = "0.4", features = ["wasm_js"] }
 
